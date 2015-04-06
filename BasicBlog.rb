@@ -16,7 +16,7 @@ class Blog
 
   def create_front_page
     strAux = ""
-    @post.each do |post|
+    sort_by_date.each do |post|
        strAux = strAux + post.title + "\n"
        strAux = strAux + "**************" + "\n"
        strAux = strAux + post.text + "\n"
@@ -30,9 +30,7 @@ class Blog
   end
 
   def sort_by_date
-  
-    @post.sort_by {|post| @post.text}
-
+    return @post.sort_by {|post| post.date}.reverse
   end
 
 end
@@ -63,11 +61,19 @@ class Post
 
 end
 
-post1 = Post.new "Title_1", Time.now, "z"
-post2 = Post.new "Title_2", Time.now, "y"
-post3 = Post.new "Title_3", Time.now, "x"
+############################
+#INSTANCES
+############################
+
+post1 = Post.new "Title_1", 2010, "z"
+post2 = Post.new "Title_2", 2015, "y"
+post3 = Post.new "Title_3", 1976, "x"
 
 myBlog = Blog.new  
+
+############################
+#MAIN
+############################
 
 myBlog.add_post(post1)
 myBlog.add_post(post2)
@@ -75,3 +81,5 @@ myBlog.add_post(post3)
 
 myBlog.create_front_page
 myBlog.publish_front_page
+myBlog.sort_by_date
+

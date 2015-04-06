@@ -14,10 +14,23 @@ class Blog
     @post.push(post)
   end	
 
+  def sort_by_date
+    return @post.sort_by {|post| post.date}.reverse
+  end
+  
+  def title(post)
+    if post.sponsored == true
+      strTitle = "******" + post.title + "******"
+    else      
+      strTitle = post.title
+    end
+    return strTitle
+  end  
+
   def create_front_page
     strAux = ""
     sort_by_date.each do |post|
-       strAux = strAux + post.title + "\n"
+       strAux = strAux + title(post) + "\n"
        strAux = strAux + "**************" + "\n"
        strAux = strAux + post.text + "\n"
        strAux = strAux + "--------------" + "\n"
@@ -29,10 +42,6 @@ class Blog
     puts create_front_page 
   end
 
-  def sort_by_date
-    return @post.sort_by {|post| post.date}.reverse
-  end
-
 end
 
 class Post
@@ -41,10 +50,11 @@ class Post
   attr_accessor :text
   attr_accessor :date
 
-  def initialize(title, date, text)
+  def initialize(title, date, text, sponsored)
     @title = title
     @date = date
     @text = text
+    @sponsored = sponsored
   end
 
   def title
@@ -59,15 +69,19 @@ class Post
     @text	
   end
 
+  def sponsored
+    @sponsored 
+  end
+
 end
 
 ############################
 #INSTANCES
 ############################
 
-post1 = Post.new "Title_1", 2010, "z"
-post2 = Post.new "Title_2", 2015, "y"
-post3 = Post.new "Title_3", 1976, "x"
+post1 = Post.new "Title_1", 2010, "z", false
+post2 = Post.new "Title_2", 2015, "y", true
+post3 = Post.new "Title_3", 1976, "x", false
 
 myBlog = Blog.new  
 

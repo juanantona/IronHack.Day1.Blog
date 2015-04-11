@@ -46,10 +46,8 @@ end
 
 class Post
 
-  attr_accessor :title
-  attr_accessor :text
-  attr_accessor :date
-
+  attr_accessor :title, :text, :date
+  
   def initialize(title, date, text, sponsored)
     @title = title
     @date = date
